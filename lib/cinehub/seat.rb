@@ -13,7 +13,7 @@ module Cinehub
     end
 
     def available?
-      @status
+      @status == 'AVAILABLE'
     end
   end
 end
