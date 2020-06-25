@@ -5,5 +5,4 @@ require "cinehub/base"
 
 module Cinehub
   class UnavailableSeatError < StandardError; end
-
 end

@@ -30,6 +30,7 @@ module Cinehub
       return seats if seats.empty?
       composed = {}
       seats.each_pair do |id, seat_hsh|
+        seat_hsh.transform_keys!(&:to_sym)
         row_sym = seat_hsh[:row].to_sym
         seat = Seat.new(seat_hsh[:row], seat_hsh[:column], seat_hsh[:status])
         if composed.has_key?(row_sym)

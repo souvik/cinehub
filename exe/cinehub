@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+require "json"
+require "optparse"
+
+require "cinehub"
+
+Options = Struct.new(:json_input, :viewers)
+
+class CommandLineOptionParser
+  def self.parse(options)
+    args = Options.new
+
+    options = %w[--help] if options.empty?
+    opt_parser = OptionParser.new do |opts|
+      opts.banner = "Usage: cinehub [options]"
+
+      opts.on("-f", "--json-file FILE", String, "Require input as JSON FILE") do |file_path|
+        args.json_input = file_path
+      end
+
+      opts.on("-i", "--viewers INTEGER", Integer, "Require number of viewer in INTEGER") do |number|
+        args.viewers = number
+      end
+
+      opts.on("-h", "--help", "Usage") do
+        puts opts
+        exit
+      end
+    end
+
+    opt_parser.parse!(options)
+    return args
+  rescue => e
+    p e.message
+  end
+end
+
+begin
+  options = CommandLineOptionParser.parse ARGV
+  input_json = File.open(options.json_input){ |file| JSON.load(file) }
+  seat_arrengment = input_json.dig('venue', 'layout').transform_keys(&:to_sym)
+  availabilities = input_json['seats'].transform_keys(&:to_sym)
+  theatre = Cinehub::Theatre.new(seat_arrengment[:rows], seat_arrengment[:columns], availabilities)
+  reserved_seat = theatre.reserve_seats(options.viewers)
+  p "Reserved Seat: #{reserved_seat.id}"
+rescue => e
+  p "Failed to reserve seat, due to '#{e.message}'"
+end
