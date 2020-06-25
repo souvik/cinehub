@@ -14,8 +14,12 @@ RSpec.describe Cinehub::Base do
 
     it "creates a theatre with seats" do
       expect(Cinehub::Base.create_theatre(10, 50, {
+        a2: { id: 'a2', row: 'a', column: 2, status: 'AVAILABLE' },
         a1: { id: 'a1', row: 'a', column: 1, status: 'AVAILABLE' }
-      }).seats).to match(a1: an_instance_of(Cinehub::Seat))
+      }).seats).to match(a: a_collection_containing_exactly(
+        an_instance_of(Cinehub::Seat),
+        an_instance_of(Cinehub::Seat)
+      ))
     end
   end
 end
