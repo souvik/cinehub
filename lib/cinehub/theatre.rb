@@ -8,6 +8,10 @@ module Cinehub
       @seats = compose_seats(seats)
     end
 
+    def reserve_seats(num_of_viewer)
+      raise UnavailableSeatError.new('No seat available!') if seats.empty?
+    end
+
     private
     def compose_seats(seats)
       return seats if seats.empty?

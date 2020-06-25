@@ -4,6 +4,6 @@ require "cinehub/theatre"
 require "cinehub/base"
 
 module Cinehub
-  class Error < StandardError; end
+  class UnavailableSeatError < StandardError; end
 
 end
