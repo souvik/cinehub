@@ -43,7 +43,7 @@ begin
   availabilities = input_json['seats'].transform_keys(&:to_sym)
   theatre = Cinehub::Theatre.new(seat_arrengment[:rows], seat_arrengment[:columns], availabilities)
   reserved_seat = theatre.reserve_seats(options.viewers)
-  p "Reserved Seat: #{reserved_seat.id}"
+  p "Reserved Seat: #{reserved_seat.map(&:id).join(', ')}"
 rescue => e
   p "Failed to reserve seat, due to '#{e.message}'"
 end
