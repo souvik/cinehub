@@ -1,39 +1,36 @@
 # Cinehub
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cinehub`. To experiment with that code, run `bin/console` for an interactive prompt.
+Best Available Seat. Write a solution to return the best seat (closest to the front & middle) given a list of open seats. Rows follow alphabetical order with "a" being the first row. Columns follow numerical order from left to right.
+The list of open seats, number of rows and columns (seats) is based on a JSON input.
 
-TODO: Delete this and the text above, and describe your gem
+## Assumptions
+- The input JSON file will hold the data about the available seats only. All other seats in the venue which are all not present in seats object those will be considered as unavailable.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'cinehub'
+## Run Test Cases
+To run test cases, you need to clone the repository in your system
+```
+$ git clone git@github.com:souvik/cinehub.git
 ```
 
-And then execute:
+Then run the setup
+```
+$ cd cinehub
+$ bin/setup
+```
 
-    $ bundle
+Finally run all RSpec test cases
+```
+$ bin/rake spec
+```
 
-Or install it yourself as:
+## Execution
+To execute the program you need to setup JSON input file like "examples/sample.json" file. Then use below command run the program
+```
+$ ruby -Ilib exe/cinehub -f ./example/sample.json -i 2
+```
+Or, use below command
+```
+$ ruby -Ilib exe/cinehub -json-file ./example/sample.json --viewers 2
+```
 
-    $ gem install cinehub
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/cinehub.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+NOTE: Use command option '--help' to get the usage, `ruby -Ilib exe/cinehub --help`
